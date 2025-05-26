@@ -1,0 +1,15 @@
+# Core libraries
+numpy
+scikit-learn
+
+# PDF extraction
+PyMuPDF
+
+# Environment variables
+python-dotenv
+
+# Gemini API
+google-generativeai
+
+# Optional (for UI)
+streamlit
