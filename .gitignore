@@ -1,1 +1,73 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Local environment variables
 .env
+
+# VSCode settings
+.vscode/
+
+# MacOS files
+.DS_Store
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Logs and temp files
+logs/
+*.log
+*.jsonl
+*.json~
+
+# Streamlit and Streamlit cache
+.streamlit/
+**/.streamlit/
+
+# Embeddings and indexes
+data/embeddings/
+indexes/
+*.faiss
+*.pkl
+
+# PDF data (optional if not version-controlled)
+data/knowledge.pdf
+
+# OS files
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Python egg and distribution
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Test coverage and pytest
+htmlcov/
+.tox/
+.nox/
+.coverage
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+*.backup

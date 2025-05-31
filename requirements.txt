@@ -1,15 +1,13 @@
-# Core libraries
+fastapi
+uvicorn[standard]
+python-multipart
+sentence-transformers
+faiss-cpu
+python-dotenv
+PyMuPDF
 numpy
 scikit-learn
-
-# PDF extraction
-PyMuPDF
-
-# Environment variables
-python-dotenv
-
-# Gemini API
 google-generativeai
-
-# Optional (for UI)
 streamlit
+requests
+httpx

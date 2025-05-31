@@ -5,6 +5,7 @@ import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
+from datetime import datetime  # For timestamping logs
 
 # Load environment variables from .env
 load_dotenv()
@@ -22,9 +23,11 @@ HEADERS = {
 
 DEBUG = False  # Set to True to debug prompt
 
+
 def setup_deepseek():
     """Returns the DeepSeek model name."""
     return MODEL_NAME
+
 
 def ask_question(model_name, context_chunks, user_question):
     """
@@ -40,7 +43,7 @@ def ask_question(model_name, context_chunks, user_question):
     """
     if not context_chunks:
         return "⚠️ No context available to answer the question."
-    
+
     context = "\n\n".join(context_chunks)
     prompt = (
         "You are a helpful AI assistant. Use the following context to answer the question.\n\n"
@@ -74,6 +77,7 @@ def ask_question(model_name, context_chunks, user_question):
     except Exception as e:
         return f"❌ Unexpected error: {e}"
 
+
 def search_chunks(embedding_model, index, chunks, query, top_k=3):
     """
     Uses FAISS to retrieve top-k chunks relevant to the query.
@@ -105,3 +109,36 @@ def search_chunks(embedding_model, index, chunks, query, top_k=3):
     except Exception as e:
         print(f"❌ Unexpected error in search_chunks: {e}")
         return []
+
+
+# ✅ FINAL Cleaned Chat History Logger
+def log_chat_to_history(question, answer, filename="logs/chat_history.json"):
+    """
+    Logs each Q&A interaction to a JSON file for persistent history.
+    Creates the file if it doesn't exist.
+    """
+    try:
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        chat_entry = {
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "question": question,
+            "answer": answer
+        }
+
+        # Load existing log if valid, else start fresh
+        if os.path.exists(filename):
+            try:
+                with open(filename, "r", encoding="utf-8") as f:
+                    history = json.load(f)
+            except json.JSONDecodeError:
+                history = []
+        else:
+            history = []
+
+        history.append(chat_entry)
+
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(history, f, indent=4)
+
+    except Exception as e:
+        print(f"⚠️ Failed to log chat history: {e}")
